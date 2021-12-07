@@ -13,6 +13,10 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
+        <!-- Bootstrap -->
+        <link href="{{ asset(mix('css/app.css')) }}" rel="stylesheet">
+        <script src="{{ asset(mix('js/app.js')) }}"></script>
+
         @livewireStyles
 
         <!-- Scripts -->

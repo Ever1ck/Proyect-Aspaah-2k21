@@ -40,17 +40,18 @@
       <label for="inputState">Estado Civil</label>
       <select id="es_civil" class="form-control" name="es_civil" wire:model="es_civil">
         <option selected>Eligue una Opcion</option>
-        <option>Soltero</option>
-        <option>Casado</option>
-        <option>Divorciado</option>
+        <option value="1">Soltero</option>
+        <option value="2">Casado</option>
+        <option value="3">Divorciado</option>
+        <option value="4">Viudo</option>
       </select>
     </div>
     <div class="form-group col-md-3">
     <label class="form-label">Sexo</label>
     <select id="sexo" class="form-control" name="sexo" wire:model="sexo">
         <option selected>Eligue una Opcion</option>
-        <option>Masculino</option>
-        <option>Femenino</option>
+        <option value="1">Masculino</option>
+        <option value="2">Femenino</option>
       </select>
     </div>
   </div>

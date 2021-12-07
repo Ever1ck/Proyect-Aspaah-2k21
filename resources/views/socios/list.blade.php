@@ -9,44 +9,56 @@
 @section('content')
 
     <p> REGISTRO DE SOCIOS.</p>
-    <div class="row">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Responsive Hover Table</h3>
-
+                <h3 class="card-title">DataTable with minimal features & hover style</h3>
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
                     <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
+                    <a href="socios/create" class="btn btn-success">Agregar Socios</a>
                     </div>
                   </div>
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
                   <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Nombre apellidos</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                      <th>Reason</th>
-                    </tr>
+                  <tr>
+                  <th>ID</th>
+                    <th>Nombre apellidos</th>
+                    <th>Categoria</th>
+                    <th>Departamento</th>
+                    <th>Provincia</th>
+                    <th>Distrito</th>
+                    <th>Comunidad</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
                   </thead>
                   <tbody>
                       @foreach($socios as $item)
                     <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                    <td>{{$item->id}}</td>
+                      <td>{{$item->nombre}}, {{$item->ape_paterno}} {{$item->ape_materno}}</td>
+                      <td>{{$item->categoria}}</td>
+                      <td>{{$item->Departamento}}</td>
+                      <td>{{$item->Provincia}}</td>
+                      <td>{{$item->Distrito}}</td>
+                      <td>{{$item->Comunidad}}</td>
+                      <td>
+                        <a class="btn btn-warning" href="/socios/{{$item->id}}/edit">Editar</a>
+                    </td>
+                    <td>
+                        <form action="{{route('personas.destroy', $item->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"  class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
                     </tr>
                     @endforeach
                   </tbody>
@@ -55,14 +67,90 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">DataTable with default features</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre apellidos</th>
+                    <th>Categoria</th>
+                    <th>Departamento</th>
+                    <th>Provincia</th>
+                    <th>Distrito</th>
+                    <th>Comunidad</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($socios as $item)
+                    <tr>
+                      <td>{{$item->id}}</td>
+                      <td>{{$item->nombre}}, {{$item->ape_paterno}} {{$item->ape_materno}}</td>
+                      <td>{{$item->categoria}}</td>
+                      <td>{{$item->Departamento}}</td>
+                      <td>{{$item->Provincia}}</td>
+                      <td>{{$item->Distrito}}</td>
+                      <td>{{$item->Comunidad}}</td>
+                    </tr>
+                    @endforeach
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
           </div>
+          <!-- /.col -->
         </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
 @stop
 
 @section('js')
     <script> console.log('Hi!'); </script>
+<!-- DataTables  & Plugins -->
+<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="/plugins/jszip/jszip.min.js"></script>
+<script src="/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
 @stop

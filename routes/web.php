@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use JeroenNoten\LaravelAdminLte\Components\Form\Select;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //Route::get('/socios',Socios::class);
     Route::resource('socios','App\Http\Controllers\SocioController');
     Route::resource('personas','App\Http\Controllers\PersonaController');
+
+    Route::view('selects','selects');

@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departamento;
+use App\Models\Provincia;
+use App\Models\Distrito;
 use Illuminate\Http\Request;
 use App\Models\Socio;
 use App\Models\Persona;
 
 class SocioController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +21,7 @@ class SocioController extends Controller
     public function index()
     {
         //
-        $socios=Socio::all();
+        $socios = Socio::all();
         return view('socios.list', compact( 'socios'));
     }
 
@@ -27,9 +32,8 @@ class SocioController extends Controller
      */
     public function create()
     {
-        //
-        $personas = Persona::all();
-        return view('socios.create', compact('socios'));
+        //    
+        return view('socios.create');
     }
 
     /**
@@ -63,6 +67,7 @@ class SocioController extends Controller
     public function edit($id)
     {
         //
+        return view('socios.edit');
     }
 
     /**

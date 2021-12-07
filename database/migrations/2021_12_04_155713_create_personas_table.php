@@ -20,8 +20,8 @@ class CreatePersonasTable extends Migration
             $table->string('ape_materno',50);
             $table->string('dni',8);
             $table->string('fe_nacimiento');
-            $table->string('es_civil',50);
-            $table->string('sexo',50);
+            $table->enum('es_civil', [ 1, 2, 3, 4]);
+            $table->enum('sexo',[ 1, 2]);
             $table->string('telefono',9);
             $table->string('email',50);
             $table->string('direccion',50);

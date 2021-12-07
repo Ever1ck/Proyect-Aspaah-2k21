@@ -40,18 +40,31 @@
     <div class="form-group col-md-3">
       <label for="inputState">Estado Civil</label>
       <select id="es_civil" class="form-control" name="es_civil" wire:model="es_civil">
-        <option value="{{$personas->es_civil}}" selected disabled>Eligue una Opcion</option>
-        <option>Soltero</option>
-        <option>Casado</option>
-        <option>Divorciado</option>
+      @if (!$personas)
+          <option value="" selected disabled>Eligue una Opcion</option>
+          @else
+            <option value="1" @if($personas->es_civil == '1') selected
+              @endif>Soltero</option>
+            <option value="2" @if($personas->es_civil == '2') selected
+              @endif>Casado</option>
+              <option value="3" @if($personas->es_civil == '3') selected
+              @endif>Divorciado</option>
+              <option value="4" @if($personas->es_civil == '4') selected
+              @endif>Viudo</option>
+        @endif
       </select>
     </div>
     <div class="form-group col-md-3">
     <label class="form-label">Sexo</label>
     <select id="sexo" class="form-control" name="sexo" wire:model="sexo">
+      @if (!$personas)
         <option value="" selected disabled>Eligue una Opcion</option>
-        <option>Masculino</option>
-        <option>Femenino</option>
+        @else
+        <option value="1" @if($personas->sexo == '1') selected
+              @endif>Masculino</option>
+        <option value="2" @if($personas->sexo == '2') selected
+              @endif>Femenino</option>
+        @endif
       </select>
     </div>
   </div>
