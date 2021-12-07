@@ -17,11 +17,12 @@ class Provincia extends Model
 
     protected $guarded = ['idProv'];
 
+
     public function departamento() {
         return $this->belongsTo('App\Models\Departamento');
     }
 
     public function distritos() {
-        return $this->hasMany('App\Models\Distrito', 'idProv', 'idDist');
+        return $this->hasMany('App\Models\Distrito', 'fkProv', 'idDist');
     }
 }

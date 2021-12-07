@@ -31,3 +31,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     Route::resource('personas','App\Http\Controllers\PersonaController');
 
     Route::view('selects','selects');
+
+    Route::get('/socios/provinciasByDep/{id}','App\Http\Controllers\SocioController@provinciasByDep');
+    Route::get('/socios/distritosByProv/{id}','App\Http\Controllers\SocioController@distritosByProv');

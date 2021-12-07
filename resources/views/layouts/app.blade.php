@@ -16,8 +16,12 @@
         <!-- Bootstrap -->
         <link href="{{ asset(mix('css/app.css')) }}" rel="stylesheet">
         <script src="{{ asset(mix('js/app.js')) }}"></script>
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+
 
         @livewireStyles
+        <link rel="stylesheet"
+            href="{{ mix('css/app.css') }}">
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
@@ -45,6 +49,7 @@
 
         @stack('modals')
 
+        <script src="{{ mix('js/app.js') }}"></script>
         @livewireScripts
     </body>
 </html>

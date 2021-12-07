@@ -1,5 +1,14 @@
+@extends('adminlte::page')
 
-    <p> REGISTRO DE SOCIOS.</p>
+@section('title', 'Socios')
+
+@section('content_header')
+    <h1>Socios</h1>
+@stop
+
+@section('content')
+
+<p> REGISTRO DE SOCIOS.</p>
 
     <form action="/socios" method="POST">
         @csrf
@@ -19,21 +28,21 @@
     </div>
     <div class="mb-3 col">
     <label class="form-label">Apellido Paterno</label>
-    <input name="ape_paterno" id="ape_paterno" type="text" class="form-control" wire:model="ape_paterno">
+    <input name="" id="" type="text" class="form-control" wire:model="">
     </div>
     <div class="mb-3 col">
     <label class="form-label">Apellido Materno</label>
-    <input name="ape_materno" id="ape_materno" type="text" class="form-control" wire:model="ape_materno">
+    <input name="" id="" type="text" class="form-control" wire:model="">
     </div>
   </div>
   <div class="row">
   <div class="form-group col-md-3">
     <label class="form-label">DNI</label>
-    <input name="dni" id="dni" type="number" class="form-control" wire:model="dni">
+    <input name="" id="" type="number" class="form-control" wire:model="">
     </div>
     <div class="form-group col-md-3">
     <label class="form-label">Fecha Nacimiento</label>
-    <input name="fe_nacimiento" id="fe_nacimiento" type="date" class="form-control" wire:model="fe_nacimiento">
+    <input name="" id="" type="date" class="form-control" wire:model="">
     </div>
     <div class="form-group col-md-3">
     <label class="form-label">Comunidad</label>
@@ -58,17 +67,20 @@
         
         <select class="form-control"  wire:model="selectedProvincias" id="provincia">
             <option value="" >Selecciona una provincia</option>
-            @if (!is_null($provincias))
             @foreach ($provincias as $provincia)
             <option value="{{$provincia->idProv}}">{{$provincia->provincia}}</option>
             @endforeach
-            @endif
         </select>
         
     </div>
     <div class="form-group col">
         <label class="form-label">Distrito</label>
-        <input name="distrito" id="distrito" type="number" class="form-control" wire:model="selectedDistrito">
+        <select class="form-control"  wire:model="selectedDistrito" id="distrito">
+            <option value="" >Selecciona una provincia</option>
+            @foreach ($distritos as $distrito)
+            <option value="{{$distrito->idDist}}">{{$distrito->distrito}}</option>
+            @endforeach
+        </select>
     </div>
     <div class="d-none">
         <div class="mb-3">
@@ -79,12 +91,16 @@
     </div>
       <div class="row">
         <div class="mb-3 col">
-            <label class="form-label">Familia</label>
-            <input name="fa_parentesco" id="fa_parentesco" type="text" class="form-control" wire:model="fa_parentesco">
+            <label class="form-label">Codigo</label>
+            <input name="codigo" id="codigo" type="text" class="form-control" wire:model="codigo">
         </div>
         <div class="mb-3 col">
-            <label class="form-label">Parentesco</label>
-            <input name="parentesco" id="parentesco" type="text" class="form-control" wire:model="parentesco">
+            <label class="form-label">Tipo</label>
+            <input name="tipo" id="tipo" type="text" class="form-control" wire:model="tipo">
+        </div>
+        <div class="mb-3 col">
+            <label class="form-label">Categoria</label>
+            <input name="categoria" id="categoria" type="text" class="form-control" wire:model="categoria">
         </div>
     </div>
     
@@ -95,7 +111,20 @@
   </div>
   
 <div class="float-end">
-            <a href="/personas" class="me-2 btn btn-danger">Cerrar</a>
+            <a href="/socios" class="me-2 btn btn-danger">Cerrar</a>
             <button  type="submit" class="btn btn-success">Guardar</button>
         </div>
     </form>
+
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+
+@stop
+    

@@ -14,9 +14,9 @@ class CreateProvinciasTable extends Migration
     public function up()
     {
         Schema::create('provincias', function (Blueprint $table) {
-            $table->id('idProv');
-            $table->string('provincia',50);
-            $table->foreignId('idDepa')->references('idDepa')->on('departamentos');
+            $table->string('id',4)->unique();
+            $table->string('name',45);
+            $table->string('departamento_id',2);
         });
     }
 

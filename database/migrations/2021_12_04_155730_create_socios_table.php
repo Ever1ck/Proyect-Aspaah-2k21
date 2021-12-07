@@ -21,9 +21,12 @@ class CreateSociosTable extends Migration
             $table->string('categoria',8);
             $table->string('es_socio',50);
             $table->string('comunidad',50);
-            $table->string('distrito',50);
-            $table->string('provincia',50);
-            $table->string('departamento',50);
+            $table->string('distrito_id');
+            $table->string('provincia_id');
+            $table->string('departamento_id');
+            $table->foreign('distrito_id')->references('id')->on('distritos');
+            $table->foreign('provincia_id')->references('id')->on('provincias');
+            $table->foreign('departamento_id')->references('id')->on('departamentos');
             $table->timestamps();
         });
     }

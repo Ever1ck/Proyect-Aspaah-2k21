@@ -17,9 +17,8 @@ class Departamento extends Model
 
     protected $guarded = ['idDepa'];
 
-    protected $fillable=["departamento"];
 
     public function provincias() {
-        return $this->hasMany('App\Models\Provincia', 'idDepa', 'idProv');
+        return $this->hasMany('App\Models\Provincia', 'fkDepa', 'idProv');
     }
 }

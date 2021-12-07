@@ -40,20 +40,34 @@
                   </tr>
                   </thead>
                   <tbody>
-                      @foreach($socios as $item)
-                    <tr>
-                    <td>{{$item->id}}</td>
-                      <td>{{$item->nombre}}, {{$item->ape_paterno}} {{$item->ape_materno}}</td>
-                      <td>{{$item->categoria}}</td>
-                      <td>{{$item->Departamento}}</td>
-                      <td>{{$item->Provincia}}</td>
-                      <td>{{$item->Distrito}}</td>
-                      <td>{{$item->Comunidad}}</td>
+                      @foreach($socios as $socio)
+                        <tr>
+                        <td>{{$socio->id}}</td>
+                      @if ($socio->personas_id)
+                        <td>{{$socio->persona->nombre}} , {{$socio->persona->ape_paterno}} {{$socio->persona->ape_materno}}</td>
+                      @else
+                        <td>Desconocido</td>
+                      @endif
+                      <td>{{$socio->categoria}}</td>
+                      @if ($socio->departamento_id)
+                        <td>{{$socio->departamento->name}}</td>
+                      @else
+                        <td>Desconocido</td>
+                      @endif
+                      @if ($socio->provincia_id)
+                        <td>{{$socio->provincia->name}}</td>
+                      @else
+                        <td>Desconocido</td>
+                      @endif
+                      @if ($socio->distrito_id)
+                        <td>{{$socio->distrito->name}}</td>
+                      @else
+                        <td>Desconocido</td>
+                      @endif
+                      <td>{{$socio->comunidad}}</td>
                       <td>
-                        <a class="btn btn-warning" href="/socios/{{$item->id}}/edit">Editar</a>
-                    </td>
-                    <td>
-                        <form action="{{route('personas.destroy', $item->id)}}" method="POST">
+                        <a class="btn btn-warning" href="/socios/{{$socio->id}}/edit">Editar</a>
+                        <form action="{{route('personas.destroy', $socio->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit"  class="btn btn-danger">Eliminar</button>
@@ -89,13 +103,29 @@
                   <tbody>
                   @foreach($socios as $item)
                     <tr>
-                      <td>{{$item->id}}</td>
-                      <td>{{$item->nombre}}, {{$item->ape_paterno}} {{$item->ape_materno}}</td>
-                      <td>{{$item->categoria}}</td>
-                      <td>{{$item->Departamento}}</td>
-                      <td>{{$item->Provincia}}</td>
-                      <td>{{$item->Distrito}}</td>
-                      <td>{{$item->Comunidad}}</td>
+                      <td>{{$socio->id}}</td>
+                      @if ($socio->personas_id)
+                      <td>{{$socio->persona->nombre}} , {{$socio->persona->ape_paterno}} {{$socio->persona->ape_materno}}</td>
+                      @else
+                        <td>Desconocido</td>
+                      @endif
+                      <td>{{$socio->categoria}}</td>
+                      @if ($socio->departamento_id)
+                        <td>{{$socio->departamento->name}}</td>
+                      @else
+                        <td>Desconocido</td>
+                      @endif
+                      @if ($socio->provincia_id)
+                        <td>{{$socio->provincia->name}}</td>
+                      @else
+                        <td>Desconocido</td>
+                      @endif
+                      @if ($socio->distrito_id)
+                        <td>{{$socio->distrito->name}}</td>
+                      @else
+                        <td>Desconocido</td>
+                      @endif
+                      <td>{{$socio->comunidad}}</td>
                     </tr>
                     @endforeach
                   </tfoot>
