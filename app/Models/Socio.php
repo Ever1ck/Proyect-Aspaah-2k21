@@ -9,7 +9,7 @@ class Socio extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['personas_id', 'codigo', 'tipo', 'categoria', 'es_socio', 'comunidad', 'distrito_id', 'provincia_id', 'departamento_id'];
+    protected $fillable = ['personas_id', 'codigo', 'tipo', 'categoria', 'es_socio', 'comunidad', 'distrito_id', 'provincia_id', 'departamento_id', 'imagen'];
 
     public function persona() {
         return $this->belongsTo(Persona::class, 'personas_id', 'id');

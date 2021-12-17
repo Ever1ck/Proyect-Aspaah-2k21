@@ -271,6 +271,10 @@ return [
                     'text' => 'PERSONAS',
                     'url'  => '/personas',
                 ],
+                [
+                    'text' => 'MAQUINARIA',
+                    'url'  => '/maquinarias',
+                ],
             ],
         ],
         [
@@ -481,5 +485,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];

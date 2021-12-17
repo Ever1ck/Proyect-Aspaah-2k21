@@ -9,9 +9,11 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">    
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        
 
         <!-- Bootstrap -->
         <link href="{{ asset(mix('css/app.css')) }}" rel="stylesheet">
@@ -25,6 +27,8 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -49,7 +53,10 @@
 
         @stack('modals')
 
-        <script src="{{ mix('js/app.js') }}"></script>
+        
         @livewireScripts
+        <script src="{{ mix('js/app.js') }}"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     </body>
 </html>

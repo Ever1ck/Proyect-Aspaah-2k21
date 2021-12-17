@@ -36,7 +36,7 @@
                     <th>Provincia</th>
                     <th>Distrito</th>
                     <th>Comunidad</th>
-                    <th scope="col">Acciones</th>
+                    <th>Acciones</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -65,13 +65,18 @@
                         <td>Desconocido</td>
                       @endif
                       <td>{{$socio->comunidad}}</td>
-                      <td>
-                        <a class="btn btn-warning" href="/socios/{{$socio->id}}/edit">Editar</a>
-                        <form action="{{route('personas.destroy', $socio->id)}}" method="POST">
+                      <td width="100px"><!-- width="50px" --> 
+                        <div class="d-flex justify-content-center">
+                        <a class="btn btn-warning mx-2" href="/socios/{{$socio->id}}/pdf">{{ __('PDF') }}</a>
+                        &nbsp;
+                        <a class="btn btn-warning mx-2" href="/socios/{{$socio->id}}/edit">Editar</a>
+                        <form action="{{route('socios.destroy', $socio->id)}}" method="POST" class="formEliminar">
                             @csrf
                             @method('DELETE')
                             <button type="submit"  class="btn btn-danger">Eliminar</button>
                         </form>
+                        </div>
+                        
                     </td>
                     </tr>
                     @endforeach
@@ -101,7 +106,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  @foreach($socios as $item)
+                  @foreach($socios as $socio)
                     <tr>
                       <td>{{$socio->id}}</td>
                       @if ($socio->personas_id)
@@ -151,7 +156,38 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  (function () {
+    'use strict'
+
+    var forms = document.querySelectorAll('.formEliminar')
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          event.preventDefault()
+          event.stopPropagation()
+          Swal.fire({
+              title: '¿Desea eliminar al socio?',
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#20c997',
+              cancelButtonColor: '#6c757d',
+              confirmButtonText: 'Confirmar',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.submit();
+              Swal.fire('Eliminado', 'El socio se elimino corectamente.','success');
+            }
+          })
+        }, false)            
+      });
+  })()
+</script>
+
+    <!-- DataTables  & Plugins -->
 <!-- DataTables  & Plugins -->
 <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>

@@ -8,6 +8,7 @@ use App\Models\Provincia;
 use App\Models\Distrito;
 use App\Models\Socio;
 use Illuminate\Http\Request;
+use PDF;
 
 class SocioController extends Controller
 {
@@ -24,6 +25,22 @@ class SocioController extends Controller
         //
         $socios = Socio::all();
         return view('socios.list', compact( 'socios'));
+    }
+
+    public function pdf()
+    {
+        //
+        $socios = Socio::all();
+        $personas = Persona::all();
+        $departamentos = Departamento::all();
+        $provincias = Provincia::all();
+        $distritos = Distrito::all();
+
+        $pdf = PDF::loadView('socios.pdf',['socios'=>$socios]);
+        //$pdf->loadHTML('socios');
+        return $pdf->stream();
+
+        //return view('socios.pdf', compact( 'socios'));
     }
 
     /**
@@ -57,6 +74,9 @@ class SocioController extends Controller
     public function store(Request $request)
     {
         //
+        $socio = Socio::all();
+        $personas = Persona::all();
+
         $request->validate([
             'personas_id' => 'required',
             'codigo' => 'required',
@@ -67,20 +87,19 @@ class SocioController extends Controller
             'distrito_id' => 'required',
             'provincia_id' => 'required',
             'departamento_id' => 'required',
+            'imagen' => 'required|image|mimes:jpeg,png,svg|max:1024',
         ]);
 
-        $socio = new Socio();
-        $socio->personas_id = $request->get('personas_id');
-        $socio->codigo = $request->get('codigo');
-        $socio->tipo = $request->get('tipo');
-        $socio->categoria = $request->get('categoria');
-        $socio->es_socio = $request->get('es_socio');
-        $socio->comunidad = $request->get('comunidad');
-        $socio->distrito_id = $request->get('distrito_id');
-        $socio->provincia_id = $request->get('provincia_id');
-        $socio->departamento_id = $request->get('departamento_id');
+        
+        $socio = $request->all();
+        if($imagen = $request->file('imagen')) {
+            $rutaGuardarImg = 'imagen/';
+            $imagenSocio = date('YmdHis'). "." . $imagen->getClientOriginalExtension();
+            $imagen->move($rutaGuardarImg, $imagenSocio);
+            $socio['imagen'] = "$imagenSocio";             
+        }
 
-        $socio->save();
+        Socio::create($socio);
 
         return redirect('/socios');
     }
@@ -121,10 +140,11 @@ class SocioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Socio $socio)
     {
         //
-        $request->validate([
+
+         $request->validate([
             'personas_id' => 'required',
             'codigo' => 'required',
             'tipo' => 'required',
@@ -134,21 +154,19 @@ class SocioController extends Controller
             'distrito_id' => 'required',
             'provincia_id' => 'required',
             'departamento_id' => 'required',
+            'imagen' => 'required|image|mimes:jpeg,png,svg|max:1024',
         ]);
 
-        $socio = Socio::find($id);
-        $socio->personas_id = $request->get('personas_id');
-        $socio->codigo = $request->get('codigo');
-        $socio->tipo = $request->get('tipo');
-        $socio->categoria = $request->get('categoria');
-        $socio->es_socio = $request->get('es_socio');
-        $socio->comunidad = $request->get('comunidad');
-        $socio->distrito_id = $request->get('distrito_id');
-        $socio->provincia_id = $request->get('provincia_id');
-        $socio->departamento_id = $request->get('departamento_id');
-
-        $socio->save();
-
+        $soc = $request->all();
+        if($imagen = $request->file('imagen')) {
+            $rutaGuardarImg = 'imagen/';
+            $imagenSocio = date('YmdHis'). "." . $imagen->getClientOriginalExtension();
+            $imagen->move($rutaGuardarImg, $imagenSocio);
+            $soc['imagen'] = "$imagenSocio";             
+        }else{
+            unset($prod['imagen']);
+         }
+        $socio->update($soc);
         return redirect('/socios');
     }
 
@@ -161,5 +179,8 @@ class SocioController extends Controller
     public function destroy($id)
     {
         //
+        $socio = Socio::find($id);
+        $socio->delete();
+        return redirect('/socios');
     }
 }
