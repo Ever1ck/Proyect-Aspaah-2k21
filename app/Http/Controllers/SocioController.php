@@ -27,21 +27,39 @@ class SocioController extends Controller
         return view('socios.list', compact( 'socios'));
     }
 
-    public function pdf()
-    {
-        //
+    public function pdf() {
         $socios = Socio::all();
         $personas = Persona::all();
         $departamentos = Departamento::all();
         $provincias = Provincia::all();
         $distritos = Distrito::all();
-
-        $pdf = PDF::loadView('socios.pdf',['socios'=>$socios]);
-        //$pdf->loadHTML('socios');
-        return $pdf->stream();
-
-        //return view('socios.pdf', compact( 'socios'));
+        $pdf = PDF::loadView('socios.exports.pdf', compact('socios','personas','departamentos','provincias','distritos'));
+        $pdf->setPaper('a4', 'landscape');
+        return $pdf->stream('socios.pdf');
     }
+
+    public function pdfCarnets() {
+        $socios = Socio::all();
+        $personas = Persona::all();
+        $departamentos = Departamento::all();
+        $provincias = Provincia::all();
+        $distritos = Distrito::all();
+        $pdf = PDF::loadView('socios.exports.pdfCarnets', compact('socios','personas','departamentos','provincias','distritos'));
+        /* $pdf->setPaper('a4', 'landscape'); */
+        return $pdf->stream('personasCarnets.pdf');
+    }
+
+    public function pdfCarnet($id) {
+        $socios = Socio::find($id);
+        $personas = Persona::all();
+        $departamentos = Departamento::all();
+        $provincias = Provincia::all();
+        $distritos = Distrito::all();
+        $pdf = PDF::loadView('socios.exports.pdfCarnet', compact('socios','personas','departamentos','provincias','distritos'));
+        /* $pdf->setPaper('a4', 'landscape'); */
+        return $pdf->stream('socioCarnet.pdf');
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -112,7 +130,13 @@ class SocioController extends Controller
      */
     public function show($id)
     {
-        //
+        $personas = Persona::all();
+        $departamentos = Departamento::all();
+        $provincias = Provincia::all();
+        $distritos = Distrito::all();
+        $provincias = Provincia::all();
+        $socios=Socio::find($id);
+        return view('socios.show', compact('socios','personas', 'departamentos', 'provincias', 'distritos'));
     }
 
     /**

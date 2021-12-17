@@ -22,8 +22,11 @@ Route::get('/', function () {
     return view('dashboard');
 })->name('dashboard');*/
 
-Route::get('socios/{id}/pdf', [App\Http\Controllers\SocioController::class, 'pdf'] )->name('socios.pdf');
-
+Route::get('socios/pdf', [App\Http\Controllers\SocioController::class, 'pdf'])->name('socios.pdf');
+    Route::get('socios/excel', [App\Http\Controllers\SocioController::class, 'excel'])->name('socios.excel');
+    Route::get('socios/pdfCarnets', [App\Http\Controllers\SocioController::class, 'pdfCarnets'])->name('socios.pdfCarnets');
+    Route::get('socios/pdfCarnet/{id}', [App\Http\Controllers\SocioController::class, 'pdfCarnet'])->name('socios.pdfCarnet');
+    Route::resource('socios', App\Http\Controllers\SocioController::class);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

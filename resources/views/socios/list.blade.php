@@ -65,19 +65,15 @@
                         <td>Desconocido</td>
                       @endif
                       <td>{{$socio->comunidad}}</td>
-                      <td width="100px"><!-- width="50px" --> 
-                        <div class="d-flex justify-content-center">
-                        <a class="btn btn-warning mx-2" href="/socios/{{$socio->id}}/pdf">{{ __('PDF') }}</a>
-                        &nbsp;
-                        <a class="btn btn-warning mx-2" href="/socios/{{$socio->id}}/edit">Editar</a>
-                        <form action="{{route('socios.destroy', $socio->id)}}" method="POST" class="formEliminar">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"  class="btn btn-danger">Eliminar</button>
-                        </form>
+                      <td class="text-center">
+                        <div class="btn-group" role="group">
+                          <a href="{{route('socios.show', $socio->id)}}" type="button"
+                              class="btn btn-sm btn-info mx-2"><i class="align-middle" data-feather="eye"></i>
+                              Ver</a>
+                          <button wire:click="delete({{ $socio->id }})"
+                              class="btn btn-danger btn-sm mx-2">Retirar</button>
                         </div>
-                        
-                    </td>
+                      </td>
                     </tr>
                     @endforeach
                   </tbody>
